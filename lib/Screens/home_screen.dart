@@ -10,34 +10,13 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'SOY',
-            style: TextStyle(
-              fontSize: 90,
-              fontFamily: 'cursive',
-              color: Colors.white,
-              fontStyle: FontStyle.italic,
-            ),
-          ),
+          SoyTitle(),
           SizedBox(height: 6),
           Image.asset('assets/images/iconosoy.png', height: 180),
           SizedBox(height: 6),
-          Text(
-            '"Live a life you will remember"',
-            style: TextStyle(
-              fontSize: 22,
-              fontStyle: FontStyle.italic,
-              color: Colors.white,
-            ),
-          ),
+          Slogan(),
           SizedBox(height: 10),
-          Text(
-            '- Avicii, The Nights',
-            style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFFB39DDB),
-            ),
-          ),
+          AuthorSlogan(),
           SizedBox(height: 50),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 35),
@@ -55,6 +34,68 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
+class AuthorSlogan extends StatelessWidget {
+  const AuthorSlogan({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '- Avicii, The Nights',
+      style: TextStyle(
+        fontSize: 18,
+        color: Color(0xFFB39DDB),
+      ),
+    );
+  }
+}
+
+class Slogan extends StatelessWidget {
+  const Slogan({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      '"Live a life you will remember"',
+      style: TextStyle(
+        fontSize: 22,
+        fontStyle: FontStyle.italic,
+        color: Colors.white,
+      ),
+    );
+  }
+}
+
+class SoyTitle extends StatelessWidget {
+  const SoyTitle({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      'SOY',
+      style: TextStyle(
+        fontSize: 90,
+        fontFamily: 'cursive',
+        color: Colors.white,
+        fontStyle: FontStyle.italic,
+      ),
+    );
+  }
+}
+
+class SocialNetworkIcon extends StatelessWidget {
+  const SocialNetworkIcon({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
 class SignButton extends StatelessWidget {
   final String buttonName;
 
@@ -62,7 +103,7 @@ class SignButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 50,
       width: double.infinity,
       child: OutlinedButton(
