@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:clase_flutter/Screens/home_screen.dart';
 import 'package:clase_flutter/Screens/login_screen.dart';
+import 'package:clase_flutter/Screens/register_screen.dart';
+import 'package:clase_flutter/Screens/profile_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -13,7 +15,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }
