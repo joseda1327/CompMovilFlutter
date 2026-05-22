@@ -13,6 +13,7 @@ class Song {
   final String anio;
   final String reproducciones;
   final String descripcion;
+  final String coverAsset;
 
   const Song({
     required this.id,
@@ -24,6 +25,7 @@ class Song {
     required this.anio,
     required this.reproducciones,
     required this.descripcion,
+    required this.coverAsset,
   });
 }
 
@@ -31,11 +33,13 @@ class ArtistItem {
   final String id;
   final String nombre;
   final int canciones;
+  final String imageAsset;
 
   const ArtistItem({
     required this.id,
     required this.nombre,
     required this.canciones,
+    required this.imageAsset,
   });
 }
 
@@ -71,6 +75,7 @@ const _mockSongs = <Song>[
     reproducciones: '1.5B',
     descripcion:
         'Tema emblemático de Avicii que invita a vivir el momento. Su letra es un homenaje al espíritu libre y a las noches inolvidables, acompañado de una producción luminosa y melodías que se quedan en la cabeza.',
+    coverAsset: 'assets/drawable/runaway.jpg',
   ),
   Song(
     id: 's2',
@@ -83,6 +88,7 @@ const _mockSongs = <Song>[
     reproducciones: '1.2B',
     descripcion:
         'Disco-pop pulido con sintetizadores brillantes y una base rítmica imposible de no bailar. Una de las canciones más reproducidas de la era post-2020.',
+    coverAsset: 'assets/drawable/electricity.jpg',
   ),
   Song(
     id: 's3',
@@ -95,6 +101,7 @@ const _mockSongs = <Song>[
     reproducciones: '500M',
     descripcion:
         'Himno generacional del synthwave moderno. Su solo de saxofón y atmósfera retro-futurista lo convirtieron en un clásico instantáneo.',
+    coverAsset: 'assets/drawable/midnight_city.jpg',
   ),
   Song(
     id: 's4',
@@ -107,6 +114,7 @@ const _mockSongs = <Song>[
     reproducciones: '300M',
     descripcion:
         'Pieza etérea de dream-pop con guitarras envolventes y voz susurrada. Un viaje sensorial perfecto para escuchar de noche.',
+    coverAsset: 'assets/drawable/oblivion.jpg',
   ),
   Song(
     id: 's5',
@@ -119,6 +127,7 @@ const _mockSongs = <Song>[
     reproducciones: '150M',
     descripcion:
         'Una oda confesional a la soledad con un ritmo bailable que esconde una melancolía profunda. Mitski en su mejor forma.',
+    coverAsset: 'assets/drawable/the_mother_we_share.png',
   ),
   Song(
     id: 's6',
@@ -131,16 +140,47 @@ const _mockSongs = <Song>[
     reproducciones: '200M',
     descripcion:
         'Pilar fundacional del synth-pop y la electrónica. Su línea de bajo y secuencia de batería siguen siendo referencia décadas después.',
+    coverAsset: 'assets/drawable/clearest_blue.png',
   ),
 ];
 
 const _mockArtists = <ArtistItem>[
-  ArtistItem(id: 'a1', nombre: 'Avicii', canciones: 5),
-  ArtistItem(id: 'a2', nombre: 'Dua Lipa', canciones: 12),
-  ArtistItem(id: 'a3', nombre: 'M83', canciones: 8),
-  ArtistItem(id: 'a4', nombre: 'Beach House', canciones: 1),
-  ArtistItem(id: 'a5', nombre: 'Mitski', canciones: 7),
-  ArtistItem(id: 'a6', nombre: 'New Order', canciones: 9),
+  ArtistItem(
+    id: 'a1',
+    nombre: 'Avicii',
+    canciones: 5,
+    imageAsset: 'assets/drawable/personadosimagen.jpg',
+  ),
+  ArtistItem(
+    id: 'a2',
+    nombre: 'Dua Lipa',
+    canciones: 12,
+    imageAsset: 'assets/drawable/personatresimagen.png',
+  ),
+  ArtistItem(
+    id: 'a3',
+    nombre: 'M83',
+    canciones: 8,
+    imageAsset: 'assets/drawable/personacuatroimagen.jpg',
+  ),
+  ArtistItem(
+    id: 'a4',
+    nombre: 'Beach House',
+    canciones: 1,
+    imageAsset: 'assets/drawable/personacincoimagen.png',
+  ),
+  ArtistItem(
+    id: 'a5',
+    nombre: 'Mitski',
+    canciones: 7,
+    imageAsset: 'assets/drawable/personaseisimagen.jpg',
+  ),
+  ArtistItem(
+    id: 'a6',
+    nombre: 'New Order',
+    canciones: 9,
+    imageAsset: 'assets/drawable/pinguino.jpeg',
+  ),
 ];
 
 class ExplorerScreen extends StatefulWidget {
@@ -257,10 +297,10 @@ class HeaderExplorerScreen extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: onBack,
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 28,
+                    child: Image.asset(
+                      'assets/drawable/flechaizquierdaicono.png',
+                      width: 32,
+                      height: 32,
                     ),
                   ),
                 ],
@@ -512,7 +552,7 @@ class SongCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SongImage(),
+            SongImage(assetPath: cancion.coverAsset),
             const SizedBox(width: 14),
             Expanded(child: SongContent(cancion: cancion)),
           ],
@@ -523,7 +563,9 @@ class SongCard extends StatelessWidget {
 }
 
 class SongImage extends StatelessWidget {
-  const SongImage({super.key});
+  final String assetPath;
+
+  const SongImage({super.key, required this.assetPath});
 
   @override
   Widget build(BuildContext context) {
@@ -536,10 +578,7 @@ class SongImage extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
-        child: Image.asset(
-          'assets/images/foto_default.jpg',
-          fit: BoxFit.cover,
-        ),
+        child: Image.asset(assetPath, fit: BoxFit.cover),
       ),
     );
   }
@@ -640,7 +679,7 @@ class ArtistCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const ArtistImage(),
+            ArtistImage(assetPath: artist.imageAsset),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -674,7 +713,9 @@ class ArtistCard extends StatelessWidget {
 }
 
 class ArtistImage extends StatelessWidget {
-  const ArtistImage({super.key});
+  final String assetPath;
+
+  const ArtistImage({super.key, required this.assetPath});
 
   @override
   Widget build(BuildContext context) {
@@ -686,10 +727,7 @@ class ArtistImage extends StatelessWidget {
         border: Border.all(color: _Colors.violetaClaro, width: 2),
       ),
       child: ClipOval(
-        child: Image.asset(
-          'assets/images/foto_default.jpg',
-          fit: BoxFit.cover,
-        ),
+        child: Image.asset(assetPath, fit: BoxFit.cover),
       ),
     );
   }

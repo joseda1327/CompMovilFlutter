@@ -7,6 +7,7 @@ class SongReview {
   final String userName;
   final int rating;
   final String content;
+  final String avatarAsset;
 
   const SongReview({
     required this.id,
@@ -14,6 +15,7 @@ class SongReview {
     required this.userName,
     required this.rating,
     required this.content,
+    required this.avatarAsset,
   });
 }
 
@@ -25,6 +27,7 @@ const _mockReviews = <SongReview>[
     rating: 5,
     content:
         'No me canso de escucharla. Cada vez que suena me trae recuerdos buenísimos.',
+    avatarAsset: 'assets/drawable/personadosimagen.jpg',
   ),
   SongReview(
     id: 'r2',
@@ -33,6 +36,7 @@ const _mockReviews = <SongReview>[
     rating: 4,
     content:
         'Producción impecable y melodía pegajosa. Le faltó un poco más de variación.',
+    avatarAsset: 'assets/drawable/personatresimagen.png',
   ),
   SongReview(
     id: 'r3',
@@ -41,6 +45,7 @@ const _mockReviews = <SongReview>[
     rating: 5,
     content:
         'Un clásico moderno. La transición del puente al último coro es magistral.',
+    avatarAsset: 'assets/drawable/personacuatroimagen.jpg',
   ),
 ];
 
@@ -79,7 +84,7 @@ class SongDetailScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const SizedBox(height: 20),
-                        const SongAlbumCover(),
+                        SongAlbumCover(assetPath: song.coverAsset),
                         const SizedBox(height: 20),
                         SongTitleSection(
                           nombre: song.nombre,
@@ -127,7 +132,7 @@ class SongDetailHeader extends StatelessWidget {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'assets/images/backgroundplanosuperior.png',
+              'assets/drawable/backgroundplanosuperior3.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -140,10 +145,10 @@ class SongDetailHeader extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: onBack,
-                  child: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                    size: 32,
+                  child: Image.asset(
+                    'assets/drawable/flechaizquierdaicono.png',
+                    width: 32,
+                    height: 32,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -165,7 +170,9 @@ class SongDetailHeader extends StatelessWidget {
 }
 
 class SongAlbumCover extends StatelessWidget {
-  const SongAlbumCover({super.key});
+  final String assetPath;
+
+  const SongAlbumCover({super.key, required this.assetPath});
 
   @override
   Widget build(BuildContext context) {
@@ -178,10 +185,7 @@ class SongAlbumCover extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
-        child: Image.asset(
-          'assets/images/foto_default.jpg',
-          fit: BoxFit.cover,
-        ),
+        child: Image.asset(assetPath, fit: BoxFit.cover),
       ),
     );
   }
@@ -395,13 +399,26 @@ class SongReviewCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: onUserClick,
-            child: Text(
-              '@${review.userName}',
-              style: const TextStyle(
-                color: _Colors.violetaClaro,
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
+            child: Row(
+              children: [
+                ClipOval(
+                  child: Image.asset(
+                    review.avatarAsset,
+                    width: 32,
+                    height: 32,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '@${review.userName}',
+                  style: const TextStyle(
+                    color: _Colors.violetaClaro,
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 6),

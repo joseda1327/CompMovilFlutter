@@ -266,10 +266,10 @@ class ProfileHeader extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: onOpenExplorer,
-                  child: const Icon(
-                    Icons.search,
-                    color: Colors.white,
-                    size: 28,
+                  child: Image.asset(
+                    'assets/drawable/busquedaicono.png',
+                    width: 28,
+                    height: 28,
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -347,7 +347,7 @@ class ProfileImage extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(20),
           child: Image.asset(
-            'assets/images/foto_default.jpg',
+            'assets/drawable/personaunoimagen.png',
             fit: BoxFit.cover,
           ),
         ),
