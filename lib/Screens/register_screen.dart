@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:clase_flutter/Screens/profile_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -38,7 +39,17 @@ class RegisterScreen extends StatelessWidget {
                 obscure: true,
               ),
               SizedBox(height: 30),
-              SignButton(buttonName: 'Crear Cuenta'),
+              SignButton(
+                buttonName: 'Crear Cuenta',
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (_) => const ProfileScreen(),
+                    ),
+                    (route) => route.isFirst,
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -112,8 +123,9 @@ class InputField extends StatelessWidget {
 
 class SignButton extends StatelessWidget {
   final String buttonName;
+  final VoidCallback? onPressed;
 
-  const SignButton({super.key, required this.buttonName});
+  const SignButton({super.key, required this.buttonName, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +133,7 @@ class SignButton extends StatelessWidget {
       height: 50,
       width: double.infinity,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: onPressed ?? () {},
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.white,
           side: BorderSide(color: Colors.white),

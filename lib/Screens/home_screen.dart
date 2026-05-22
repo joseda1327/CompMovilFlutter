@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:clase_flutter/Screens/login_screen.dart';
+import 'package:clase_flutter/Screens/register_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,9 +24,27 @@ class HomeScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 35),
             child: Column(
               children: [
-                SignButton(buttonName: 'Ingresar'),
+                SignButton(
+                  buttonName: 'Ingresar',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const LoginScreen(),
+                      ),
+                    );
+                  },
+                ),
                 SizedBox(height: 4),
-                SignButton(buttonName: 'Registrar'),
+                SignButton(
+                  buttonName: 'Registrar',
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const RegisterScreen(),
+                      ),
+                    );
+                  },
+                ),
               ],
             ),
           ),
@@ -98,8 +118,9 @@ class SocialNetworkIcon extends StatelessWidget {
 }
 class SignButton extends StatelessWidget {
   final String buttonName;
+  final VoidCallback? onPressed;
 
-  const SignButton({super.key, required this.buttonName});
+  const SignButton({super.key, required this.buttonName, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +128,7 @@ class SignButton extends StatelessWidget {
       height: 50,
       width: double.infinity,
       child: OutlinedButton(
-        onPressed: () {},
+        onPressed: onPressed ?? () {},
         style: OutlinedButton.styleFrom(
           foregroundColor: Colors.white,
           side: BorderSide(color: Colors.white),
